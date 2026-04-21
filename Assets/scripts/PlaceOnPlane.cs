@@ -17,6 +17,17 @@ namespace UnityEngine.XR.ARFoundation.Samples
         [SerializeField]
         [Tooltip("Instantiates this prefab on a plane at the touch location.")]
         GameObject m_PlacedPrefab;
+        [SerializeField]
+        GameObject[] m_PrefabOptions;
+        [SerializeField]
+        XR.ARFoundation.ARPlaneManager m_ARPlaneManager;
+
+        int totalPlanesCount = 0;
+
+        [SerializeField] PlaceOnPlane m_PlaceOnPlane;
+        [SerializeField] TMPro.TextMeshProUGUI m_PlaneCountText;
+
+        public GameObject[] prefabOptions => m_PrefabOptions;
 
         /// <summary>
         /// The prefab to instantiate on touch.
@@ -38,10 +49,12 @@ namespace UnityEngine.XR.ARFoundation.Samples
         {
             base.Awake();
             m_RaycastManager = GetComponent<ARRaycastManager>();
+            m_ARPlaneManager = GetComponent<ARPlaneManager>();
         }
 
         void Update()
         {
+            m_PlaneCountText.text = "Planos: " + m_PlaceOnPlane.Contador();
 
             if (Pointer.current == null || m_Pressed == false)
                 return;
@@ -72,5 +85,34 @@ namespace UnityEngine.XR.ARFoundation.Samples
         static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
 
         ARRaycastManager m_RaycastManager;
+
+        public void Cambioprefabs(int index)
+        {
+            if (index >= 0 && index < m_PrefabOptions.Length)
+            {
+                // Opcional: destruir el objeto actual
+                Destruir();
+
+                m_PlacedPrefab = m_PrefabOptions[index];
+            }
+        }
+
+        public int Contador()
+        {
+            if (m_ARPlaneManager == null)
+                return 0;
+
+            totalPlanesCount = m_ARPlaneManager.trackables.count;
+            return totalPlanesCount;
+        }
+
+        public void Destruir()
+        {
+            if (spawnedObject != null)
+            {
+                Destroy(spawnedObject);
+                spawnedObject = null;
+            }
+        }
     }
 }
