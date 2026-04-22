@@ -12,7 +12,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
     /// and moved to the hit position.
     /// </summary>
     [RequireComponent(typeof(ARRaycastManager))]
-    public class PlaceOnPlane : PressInputBase
+    public class POP : PressInputBase
     {
         [SerializeField]
         [Tooltip("Instantiates this prefab on a plane at the touch location.")]
@@ -24,7 +24,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         int totalPlanesCount = 0;
 
-        [SerializeField] PlaceOnPlane m_PlaceOnPlane;
+        [SerializeField] POP m_PlaceOnPlane;
         [SerializeField] TMPro.TextMeshProUGUI m_PlaneCountText;
 
         public GameObject[] prefabOptions => m_PrefabOptions;
