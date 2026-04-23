@@ -24,3 +24,4 @@ public class Camescenas : MonoBehaviour
 
     }
 }
+//tengo que hacer que al colisoniar con los bloques, este de le la opcion al menu y vaya a la escena necesaria
