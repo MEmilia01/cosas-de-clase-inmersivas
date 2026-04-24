@@ -3,21 +3,44 @@ using UnityEngine.SceneManagement;
 
 public class Camescenas : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject menupregunta;
+    public bool iraesc1;
+
+    Scene actual;
+
+    void Start()
+    {
+        iraesc1 = true;
+        menupregunta.SetActive(false);
+        SceneManager.LoadScene("Inicio");
+    }
+
+    private void Update()
+    {
+        if (actual.name == "escena1")
+        {
+            menupregunta = null;
+        }
+        else if (actual.name == "escenas2")
+        {
+            menupregunta = null;
+        }
+    }
+
     public void Cambioesc()
     {
+        Debug.Log("putamierda");
         SceneManager.LoadScene("Inicio");
     }
 
     public void Cambioescuno()
     {
-        SceneManager.LoadScene("Inicio");
+        SceneManager.LoadScene("escena1");
     }
     public void Cambioescdos()
     {
-        SceneManager.LoadScene("Inicio");
+        SceneManager.LoadScene("escenas2");
     }
-
 
     public void OnCollisionEnter(Collision collision)
     {
