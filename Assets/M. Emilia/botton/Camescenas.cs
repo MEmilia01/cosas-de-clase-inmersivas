@@ -1,50 +1,55 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
 
 public class Camescenas : MonoBehaviour
 {
-    public GameObject menupregunta;
-    public bool iraesc1;
+    [Header("UI")]
+    [SerializeField] public GameObject menuPregunta;
 
-    Scene actual;
+    public string escenaDestino = "";
 
     void Start()
     {
-        iraesc1 = true;
-        menupregunta.SetActive(false);
+        if (menuPregunta != null)
+            menuPregunta.SetActive(false);
+        else
+            Debug.LogError("No has asignado menuPregunta en el Inspector.");
+    }
+
+    public void MostrarMenuEscena1()
+    {
+        escenaDestino = "escena1";
+        if (menuPregunta != null)
+            menuPregunta.SetActive(true);
+    }
+
+    public void MostrarMenuEscena2()
+    {
+        escenaDestino = "escenas2";
+        if (menuPregunta != null)
+            menuPregunta.SetActive(true);
+    }
+
+    public void CancelarMenu()
+    {
+        if (menuPregunta != null)
+            menuPregunta.SetActive(false);
+    }
+
+    public void Salir()
+    {
         SceneManager.LoadScene("Inicio");
     }
 
-    private void Update()
+    public void ConfirmarCambio()
     {
-        if (actual.name == "escena1")
+        if (string.IsNullOrEmpty(escenaDestino))
         {
-            menupregunta = null;
+            Debug.LogWarning("No hay escena destino asignada.");
+            return;
         }
-        else if (actual.name == "escenas2")
-        {
-            menupregunta = null;
-        }
-    }
 
-    public void Cambioesc()
-    {
-        Debug.Log("putamierda");
-        SceneManager.LoadScene("Inicio");
-    }
-
-    public void Cambioescuno()
-    {
-        SceneManager.LoadScene("escena1");
-    }
-    public void Cambioescdos()
-    {
-        SceneManager.LoadScene("escenas2");
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-
+        SceneManager.LoadScene(escenaDestino);
     }
 }
-//tengo que hacer que al colisoniar con los bloques, este de le la opcion al menu y vaya a la escena necesaria

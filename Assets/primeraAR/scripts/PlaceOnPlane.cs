@@ -53,8 +53,16 @@ namespace UnityEngine.XR.ARFoundation.Samples
         }
 
         void Update()
-        {
-            m_PlaneCountText.text = "Planos: " + m_PlaceOnPlane.Contador();
+        {//FindFirstObjectByType
+            if (m_PlaneCountText == null)
+            {
+                m_PlaneCountText = FindFirstObjectByType<TMPro.TextMeshProUGUI>();
+            }
+
+            if (m_PlaneCountText != null)
+            {
+                m_PlaneCountText.text = "Planos: " + m_PlaceOnPlane.Contador();
+            }
 
             if (Pointer.current == null || m_Pressed == false)
                 return;

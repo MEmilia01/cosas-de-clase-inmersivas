@@ -872,7 +872,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 921832052}
           m_TargetAssemblyTypeName: Camescenas, Assembly-CSharp
-          m_MethodName: Cambioesc
+          m_MethodName: Salir
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

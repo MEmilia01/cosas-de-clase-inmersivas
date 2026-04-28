@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/M. Emilia/Inicio.unity
     guid: 06380f605d4155b43b17c38b7c73ce11
+  - enabled: 1
+    path: Assets/M. Emilia/segAr 1/escenas2.unity
+    guid: c46d43ee0a9fb0b43aa60b41435101f0
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 4297cbf4ee9409a45815a7514eac48ad, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
