@@ -25,6 +25,7 @@ public class GameManagerAR : MonoBehaviour
 
     public GameObject endPanel;
     public CanvasGroup gameUICanvasGroup;
+    public AudioClip gemSound;
 
     private float currentTime;
     private int gemsCollected = 0;
@@ -119,8 +120,7 @@ public class GameManagerAR : MonoBehaviour
         if (gemsCollected >= gemsTarget)
             EndGame();
 
-        AudioManager.Instance.PlayGemSound();
-
+        AudioManager.Instance.PlayGemSound(gemSound);
         Destroy(gameObject);
     }
 

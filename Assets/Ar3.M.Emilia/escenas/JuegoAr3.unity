@@ -1532,6 +1532,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: audiomanager
       objectReference: {fileID: 0}
+    - target: {fileID: 9179961368428658695, guid: 5ad503ee452c17948b5e862943c2c5c9, type: 3}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 8302494937839744377, guid: a17fb896d1e84af499ab4618d5e52bbd, type: 3}
+    - target: {fileID: 9179961368428658695, guid: 5ad503ee452c17948b5e862943c2c5c9, type: 3}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 5187394967950267169, guid: 399148dc72b02e04aa803914912f33d4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
