@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec61b0bb554c3a44897c617eedead8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalPlanesInput: {fileID: 0}
-  verticalPlanesInput: {fileID: 0}
-  timeInput: {fileID: 0}
-  occlusionToggle: {fileID: 0}
-  gameParameters: {fileID: 0}
+  horizontalSlider: {fileID: 0}
+  verticalSlider: {fileID: 0}
+  timeSlider: {fileID: 0}
+  horizontalText: {fileID: 8832755008594350009, guid: 65aa8b5bab46cb04e8538c4039116bad, type: 3}
+  verticalText: {fileID: 1904846576826675457, guid: 1359627a5e5b1ed4cbe380c4350d6c0a, type: 3}
+  timeText: {fileID: 6895855232729502277, guid: fe0f28c094ead2f47be9cfa7d66c71b7, type: 3}
+  gameParameters: {fileID: 11400000, guid: 2f963821b0a9e0a46afe95ab71091730, type: 2}
