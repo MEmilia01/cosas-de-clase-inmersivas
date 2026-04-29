@@ -52,4 +52,14 @@ public class Camescenas : MonoBehaviour
 
         SceneManager.LoadScene(escenaDestino);
     }
+
+    public void ProbarTrigger(string nombreObjeto)
+    {
+        Debug.Log("TRIGGER detectado con: " + nombreObjeto);
+    }
+
+    public void ProbarColision(string nombreObjeto)
+    {
+        Debug.Log("COLISION detectada con: " + nombreObjeto);
+    }
 }

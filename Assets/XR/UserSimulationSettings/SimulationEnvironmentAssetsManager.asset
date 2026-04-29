@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SimulationEnvironmentAssetsManager
   m_EditorClassIdentifier: 
   m_EnvironmentPrefabPaths:
+  - Assets/M. Emilia/emiInicio.prefab
   - Assets/M. Emilia/primeraAR 1/comida.prefab
   - Assets/M. Emilia/segAr 1/patronimagen.prefab
   - Assets/segAr/patronimagen.prefab
