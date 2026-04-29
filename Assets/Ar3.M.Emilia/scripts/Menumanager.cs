@@ -46,15 +46,11 @@ public class MenuManager : MonoBehaviour
             gameParameters.totalTime = timeSlider.value;
         }
 
-        StartCoroutine(CargarJuegoAsync());
+        SceneManager.LoadScene("JuegoAr3");
     }
-
-    IEnumerator CargarJuegoAsync()
+    
+    public void VolverAlInicio()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("JuegoAr3");
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene("inicioar3", LoadSceneMode.Single);
     }
 }
