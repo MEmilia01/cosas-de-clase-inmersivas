@@ -23,10 +23,14 @@ public class GameManagerAR : MonoBehaviour
     public TMPro.TextMeshProUGUI planesText;
     public TMPro.TextMeshProUGUI timeText;
 
+    public GameObject endPanel;
+    public CanvasGroup gameUICanvasGroup;
+
     private float currentTime;
     private int gemsCollected = 0;
     private int gemsTarget = 0;
     public bool gameActive = false;
+    private bool gameEnded = false;
 
     void Awake()
     {
@@ -114,6 +118,10 @@ public class GameManagerAR : MonoBehaviour
 
         if (gemsCollected >= gemsTarget)
             EndGame();
+
+        AudioManager.Instance.PlayGemSound();
+
+        Destroy(gameObject);
     }
 
     int GemsRemaining()
@@ -138,11 +146,31 @@ public class GameManagerAR : MonoBehaviour
 
     void EndGame()
     {
+        if (gameEnded) return;
+
+        gameEnded = true;
         gameActive = false;
+
         if (planeManager != null)
             planeManager.planesChanged -= OnPlanesChanged;
 
+        if (planeManager != null)
+            planeManager.enabled = false;
+
+        if (occlusionManager != null)
+            occlusionManager.enabled = false;
+
+        if (gameUICanvasGroup != null)
+        {
+            gameUICanvasGroup.interactable = false;
+            gameUICanvasGroup.blocksRaycasts = false;
+        }
+
+        if (endPanel != null)
+            endPanel.SetActive(true);
+
         Debug.Log("Juego finalizado. Gemas: " + gemsCollected);
+
     }
 
     public void VolverAlInicio()

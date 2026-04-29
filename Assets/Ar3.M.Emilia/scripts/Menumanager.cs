@@ -19,6 +19,8 @@ public class MenuManager : MonoBehaviour
     [Header("Data Asset")]
     public GameParameters gameParameters;
 
+    public Toggle sonido;
+
     void Start()
     {
         // Añadir listeners para actualizar el texto en tiempo real
@@ -29,6 +31,7 @@ public class MenuManager : MonoBehaviour
         // Llamada inicial para fijar los textos
         UpdateUI(0);
     }
+
 
     void UpdateUI(float value)
     {
@@ -48,9 +51,13 @@ public class MenuManager : MonoBehaviour
 
         SceneManager.LoadScene("JuegoAr3");
     }
-    
-    public void VolverAlInicio()
+
+    public void ToggleSound(bool isMuted)
     {
-        SceneManager.LoadScene("inicioar3", LoadSceneMode.Single);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMute(isMuted);
+            Debug.Log("Estado de silencio: " + isMuted);
+        }
     }
 }
