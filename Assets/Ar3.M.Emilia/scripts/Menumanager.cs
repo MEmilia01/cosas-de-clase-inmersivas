@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
     {
         if (AudioManager.Instance != null)
         {
-            AudioManager.Instance.SetMute(isMuted);
+            AudioManager.Instance.SetMute(!isMuted);
             Debug.Log("Estado de silencio: " + isMuted);
         }
     }

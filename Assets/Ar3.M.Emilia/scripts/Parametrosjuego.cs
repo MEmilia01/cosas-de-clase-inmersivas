@@ -7,4 +7,5 @@ public class GameParameters : ScriptableObject
     public int verticalPlanes;
     public float totalTime;
     public bool useOcclusion;
+
 }
