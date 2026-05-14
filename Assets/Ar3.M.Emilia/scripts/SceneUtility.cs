@@ -1,7 +1,7 @@
 using UnityEngine.SceneManagement;
 
 namespace UnityEngine.XR.ARFoundation.Samples
-{
+{//hay q hacer referencia de esto al momento de cambiar las escenas
     public class SceneUtility : MonoBehaviour
     {
         void Awake()
