@@ -1,11 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameParameters", menuName = "AR Treasure Hunt/GameParameters")]
-public class GameParameters : ScriptableObject
+public class GameParameters : MonoBehaviour
 {
-    public int horizontalPlanes;
-    public int verticalPlanes;
-    public float totalTime;
-    public bool useOcclusion;
+    private int horizontalPlanes;
+    private int verticalPlanes;
+    private int prefabsporPlano;
+    private float totalTime;
+    private bool useOcclusion;
 
+    public int HorizontalPlanes { get => horizontalPlanes; set => horizontalPlanes = value; }
+    public int VerticalPlanes { get => verticalPlanes; set => verticalPlanes = value; }
+    public int PrefabsporPlano { get => prefabsporPlano; set => prefabsporPlano = value; }
+    public float TotalTime { get => totalTime; set => totalTime = value; }
+    public bool UseOcclusion { get => useOcclusion; set => useOcclusion = value; }
 }

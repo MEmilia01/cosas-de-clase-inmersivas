@@ -25,8 +25,8 @@ public class GemController : MonoBehaviour
             AudioSource.PlayClipAtPoint(collectSound, transform.position);
 
         if (gameManager != null)
-            gameManager.CollectGem();
+            gameManager.CollectGem(gameObject);
 
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }

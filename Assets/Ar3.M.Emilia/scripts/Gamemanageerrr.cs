@@ -3,6 +3,8 @@ using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.XR.ARSubsystems;
 
 
 public class GameManagerAR : MonoBehaviour
@@ -11,6 +13,7 @@ public class GameManagerAR : MonoBehaviour
 
     [Header("Parameters")]
     public GameParameters parameters;
+    public GameParameters parametros;
 
     [Header("AR Components")]
     public ARPlaneManager planeManager;
@@ -33,6 +36,17 @@ public class GameManagerAR : MonoBehaviour
     public bool gameActive = false;
     private bool gameEnded = false;
 
+    //private int detectedHorizontalPlanes = 0;
+    //private int detectedVerticalPlanes = 0;
+
+    //private bool horizontalRequirementMet = false;
+    //private bool verticalRequirementMet = false;
+    //private bool gameStarted = false;
+
+    //private readonly HashSet<TrackableId> countedPlanes = new HashSet<TrackableId>();
+    //private readonly List<GameObject> spawnedGems = new List<GameObject>();
+ 
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -45,89 +59,99 @@ public class GameManagerAR : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    //void Start()
+    //{
+    //    parameters = FindAnyObjectByType<GameParameters>();
+    //    planeManager = FindAnyObjectByType<ARPlaneManager>();
+    //    occlusionManager = FindAnyObjectByType<AROcclusionManager>();
+
+    //}
     IEnumerator Start()
+{
+    planeManager.enabled = false;
+
+    yield return new WaitForSeconds(2f);
+
+    if (parameters == null)
+    {
+        Debug.LogError("GameParameters no asignado.");
+        yield break;
+    }
+
+    gemsTarget = parameters.HorizontalPlanes + parameters.VerticalPlanes;
+
+    if (occlusionManager != null)
+        occlusionManager.enabled = parameters.UseOcclusion;
+
+    planeManager.requestedDetectionMode = UnityEngine.XR.ARSubsystems.PlaneDetectionMode.None;
+    if (parameters.HorizontalPlanes > 0)
+        planeManager.requestedDetectionMode |= UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Horizontal;
+    if (parameters.VerticalPlanes > 0)
+        planeManager.requestedDetectionMode |= UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Vertical;
+
+    planeManager.enabled = true;
+    planeManager.planesChanged += (args) => OnPlanesChanged(args);
+
+
+    UpdateUI();
+}
+
+void Update()
+{
+    if (!gameActive) return;
+
+    currentTime -= Time.deltaTime;
+    UpdateUI();
+
+    if (currentTime <= 0)
     {
         planeManager.enabled = false;
-
-        yield return new WaitForSeconds(1f);
-
-        if (parameters == null)
-        {
-            Debug.LogError("GameParameters no asignado.");
-            yield break;
-        }
-
-        currentTime = parameters.totalTime;
-        gemsTarget = parameters.horizontalPlanes + parameters.verticalPlanes;
-
-        if (occlusionManager != null)
-            occlusionManager.enabled = parameters.useOcclusion;
-
-        planeManager.requestedDetectionMode = UnityEngine.XR.ARSubsystems.PlaneDetectionMode.None;
-        if (parameters.horizontalPlanes > 0)
-            planeManager.requestedDetectionMode |= UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Horizontal;
-        if (parameters.verticalPlanes > 0)
-            planeManager.requestedDetectionMode |= UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Vertical;
-
-        planeManager.enabled = true;
-        planeManager.planesChanged += (args) => OnPlanesChanged(args);
-
-        UpdateUI();
+        EndGame(); 
     }
+}
 
-    void Update()
+void OnPlanesChanged(ARPlanesChangedEventArgs args)
+{
+        Debug.Log("Hey");
+        int totalDetected = planeManager.trackables.count;
+        if (totalDetected == gemsTarget)
+            { StartGame(); planeManager.enabled = false; }
+}
+
+void StartGame()
+{
+    currentTime = parameters.TotalTime;
+
+    gameActive = true;
+    Debug.Log("Juego iniciado.");
+
+    int spawned = 0;
+    foreach (ARPlane plane in planeManager.trackables)
     {
-        if (!gameActive) return;
-
-        currentTime -= Time.deltaTime;
-        UpdateUI();
-
-        if (currentTime <= 0)
-            EndGame();
+        if (spawned >= gemsTarget) break;
+        Instantiate(gemPrefab, plane.center, Quaternion.identity);
+        spawned++;
     }
 
-    void OnPlanesChanged(ARPlanesChangedEventArgs args)
-    {
-        if (!gameActive)
-        {
-            int totalDetected = planeManager.trackables.count;
-            if (totalDetected >= gemsTarget)
-                StartGame();
-        }
-    }
+    UpdateUI();
+}
 
-    void StartGame()
-    {
-        gameActive = true;
-        Debug.Log("Juego iniciado.");
+public void CollectGem(GameObject gameObject)
+{
+    gemsCollected++;
+    UpdateUI();
 
-        int spawned = 0;
-        foreach (ARPlane plane in planeManager.trackables)
-        {
-            if (spawned >= gemsTarget) break;
-            Instantiate(gemPrefab, plane.center, Quaternion.identity);
-            spawned++;
-        }
+    if (gemsCollected >= gemsTarget)
+        EndGame();
 
-        UpdateUI();
-    }
+    AudioManager.Instance.PlayGemSound(gemSound);
+    Destroy(gameObject);
+}
 
-    public void CollectGem()
-    {
-        gemsCollected++;
-        UpdateUI();
-
-        if (gemsCollected >= gemsTarget)
-            EndGame();
-
-        AudioManager.Instance.PlayGemSound(gemSound);
-        Destroy(gameObject);
-    }
-
-    int GemsRemaining()
-    {
-        return Mathf.Max(0, gemsTarget - gemsCollected);
-    }
+int GemsRemaining()
+{
+    return Mathf.Max(0, gemsTarget - gemsCollected);
+}
 
     void UpdateUI()
     {
@@ -141,10 +165,10 @@ public class GameManagerAR : MonoBehaviour
             planesText.text = "Planos objetivo: " + gemsTarget;
 
         if (timeText != null)
-            timeText.text = "Tiempo: " + Mathf.CeilToInt(currentTime) + "s";
-    }
+        { timeText.text = "Tiempo: " + Mathf.CeilToInt(currentTime) + "s"; }
 
-    void EndGame()
+    }
+    public void EndGame()
     {
         if (gameEnded) return;
 
@@ -177,4 +201,6 @@ public class GameManagerAR : MonoBehaviour
     {
         SceneManager.LoadScene("InicioAr3");
     }
+
+
 }

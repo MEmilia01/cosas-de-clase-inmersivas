@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
     public GameParameters gameParameters;
 
     public Toggle sonido;
+    
 
     void Start()
     {
@@ -44,11 +45,12 @@ public class MenuManager : MonoBehaviour
     {
         if (gameParameters != null)
         {
-            gameParameters.horizontalPlanes = (int)horizontalSlider.value;
-            gameParameters.verticalPlanes = (int)verticalSlider.value;
-            gameParameters.totalTime = timeSlider.value;
+            gameParameters.HorizontalPlanes = (int)horizontalSlider.value;
+            gameParameters.VerticalPlanes = (int)verticalSlider.value;
+            gameParameters.TotalTime = timeSlider.value;
         }
 
+        //SceneUtility.OnSceneUnloaded(Scene current);
         SceneManager.LoadScene("JuegoAr3");
     }
 

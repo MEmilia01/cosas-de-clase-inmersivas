@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5388413090374010743}
   - component: {fileID: 7137292781318350947}
+  - component: {fileID: 1861812388036826590}
   m_Layer: 0
   m_Name: gamemanager
   m_TagString: Untagged
@@ -45,6 +46,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters: {fileID: 0}
+  parametros: {fileID: 1861812388036826590}
   planeManager: {fileID: 0}
   occlusionManager: {fileID: 0}
-  gemPrefab: {fileID: 0}
+  gemPrefab: {fileID: 347184496589584216, guid: a17fb896d1e84af499ab4618d5e52bbd, type: 3}
+  collectedText: {fileID: 0}
+  remainingText: {fileID: 0}
+  planesText: {fileID: 0}
+  timeText: {fileID: 0}
+  endPanel: {fileID: 0}
+  gameUICanvasGroup: {fileID: 0}
+  gemSound: {fileID: 0}
+  gameActive: 0
+--- !u!114 &1861812388036826590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931057876998459944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18911cf4498fba2438f46f042da1741d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

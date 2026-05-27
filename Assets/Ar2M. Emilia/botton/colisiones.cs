@@ -6,7 +6,8 @@ public class Colisiones : MonoBehaviour
 
     private void Start()
     {
-        if (camescenas == null)
+        Debug.Log("Holi");
+       if (camescenas == null)
             camescenas = FindFirstObjectByType<Camescenas>();
 
         if (camescenas == null)
